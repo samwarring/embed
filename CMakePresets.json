@@ -1,0 +1,33 @@
+{
+    "version": 4,
+    "configurePresets": [
+        {
+            "name": "linux-gcc",
+            "displayName": "Linux Development",
+            "description": "Ninja Multi-Config",
+            "generator": "Ninja Multi-Config",
+            "binaryDir": "${sourceDir}/build/${presetName}",
+            "cacheVariables": {
+                "CMAKE_CXX_FLAGS": "-Werror -Wall -Wextra"
+            },
+            "environment": {
+                "CXX": "g++",
+                "CC": "gcc"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "configurePreset": "linux-gcc",
+            "name": "linux-gcc-debug",
+            "displayName": "Build Debug",
+            "configuration": "Debug"
+        },
+        {
+            "configurePreset": "linux-gcc",
+            "name": "linux-gcc-release",
+            "displayName": "Build Release",
+            "configuration": "Release"
+        }
+    ]
+}

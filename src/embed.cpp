@@ -38,7 +38,7 @@ std::size_t process_chunk(std::istream& in, std::ostream& out, const options& op
             out << "\"\n    \"";
             num_chars_on_line = 0;
         }
-        out << octals[ch];
+        out << octals[static_cast<unsigned int>(ch)];
         ++num_chars_on_line;
         ++chunk_size;
     }

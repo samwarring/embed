@@ -81,7 +81,7 @@ macro(add_embedded_file embed_target embed_input)
 
   # Build the command line
   set(embed_CMD
-      embed
+      embed::embed
       -f
       "${embed_INPUT}"
       -I
@@ -104,7 +104,7 @@ macro(add_embedded_file embed_target embed_input)
     OUTPUT "${embed_CPP}" "${embed_HPP}"
     COMMAND ${embed_CMD}
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-    DEPENDS embed "${embed_input}")
+    DEPENDS embed::embed "${embed_input}")
   add_library(${embed_target} OBJECT "${embed_CPP}")
   target_include_directories(${embed_target} PUBLIC "${embed_INCLUDE_DIR}")
 endmacro()
