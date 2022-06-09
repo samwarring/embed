@@ -1,5 +1,5 @@
 add_custom_command(
-  OUTPUT lorem.h lorem.cpp
+  OUTPUT lorem.hpp lorem.cpp
   COMMAND embed -f "${CMAKE_CURRENT_SOURCE_DIR}/lorem.txt" -H lorem.hpp -C
           lorem.cpp -I "${CMAKE_CURRENT_BINARY_DIR}" -x lorem -s 1024
   WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
