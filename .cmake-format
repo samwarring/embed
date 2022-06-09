@@ -1,0 +1,14 @@
+with section("parse"):
+    additional_commands = {
+          'add_embedded_file' : {
+              'kwargs' : {
+                  'INPUT' : '1',
+                  'HPP' : '1',
+                  'CPP' : '1',
+                  'INCLUDE_DIR' : '1',
+                  'IDENT' : '1',
+                  'NAMESPACE' : '1',
+                  'CHUNKSIZE' : '1'
+              }
+          }
+      }

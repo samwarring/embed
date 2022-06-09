@@ -18,7 +18,7 @@ void open_namespace(std::ostream& out, const options& opts) {
 
 void close_namespace(std::ostream& out, const options& opts) {
     if (!opts.identifier_namespace.empty()) {
-        out << "\n}\n";
+        out << "\n} // namespace " << opts.identifier_namespace << '\n';
     }
 }
 
