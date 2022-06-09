@@ -1,5 +1,44 @@
 cmake_minimum_required(VERSION 3.20)
 
+#[=======================================================================[.rst:
+add_embedded_file
+-----------------
+
+Creates an object-library target that embeds arbitrary file data.
+
+The new target can be linked to other libraries and executables with the
+`target_link_libraries` command. `add_embedded_file` uses the `embed` utility
+to generate a C++ header/source file pair with variables that refer to
+chunks of data from the original file.
+
+The header file, source file, variable names, variable namespace, and maximum
+chunksize can all be configured with optional keyword arguments `HPP`, `CPP`,
+`IDENT`, `NAMESPACE`, and `CHUNKSIZE` respectively.
+
+If present the `HPP` argument must be a relative path. By default, it is assumed
+relative to CMAKE_CURRENT_BINARY_DIR, but this can be overridden with the
+`INCLUDE_DIR` keyword argument. This INCLUDE_DIR is added as a PUBLIC include
+directory for the generated target.
+
+By default, the header file and identifier are derived from the name of the input
+file, with all invalid characters replaced by '_', and the header file name is
+appended with an *.hpp extension.
+
+Example
+^^^^^^^
+
+  add_embedded_file(mydata data.csv)
+
+  Targets that link to the new `mydata` target will be able to include the
+  data via `#include <data_csv.hpp>`. The header file defines the following
+  variables:
+  
+  1. data_csv_num_chunks: Number of embedded chunks of contiguous data.
+  2. data_csv_chunks: Array of pointers to each embedded chunk.
+  3. data_csv_chunk_sizes: Array of chunk sizes; one for each chunk.
+
+#]=======================================================================]
+Creates an object-library target that embeds an arbitrary file.
 macro(add_embedded_file embed_target embed_input)
   set(embed_args0)
   set(embed_args1 HPP CPP INCLUDE_DIR IDENT NAMESPACE CHUNKSIZE)
