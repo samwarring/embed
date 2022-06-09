@@ -32,13 +32,12 @@ Example
   Targets that link to the new `mydata` target will be able to include the
   data via `#include <data_csv.hpp>`. The header file defines the following
   variables:
-  
+
   1. data_csv_num_chunks: Number of embedded chunks of contiguous data.
   2. data_csv_chunks: Array of pointers to each embedded chunk.
   3. data_csv_chunk_sizes: Array of chunk sizes; one for each chunk.
 
 #]=======================================================================]
-Creates an object-library target that embeds an arbitrary file.
 macro(add_embedded_file embed_target embed_input)
   set(embed_args0)
   set(embed_args1 HPP CPP INCLUDE_DIR IDENT NAMESPACE CHUNKSIZE)
