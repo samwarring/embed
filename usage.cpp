@@ -81,6 +81,9 @@ options parse_options(int argc, char** argv) {
     if (opts.identifier.empty()) {
         usage_error("'-x' is required");
     }
+    if (!opts.output_hpp.is_relative()) {
+        usage_error("'-H' must be a relative path");
+    }
     return opts;
 }
 
