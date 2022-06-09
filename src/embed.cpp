@@ -1,6 +1,7 @@
 #include <fstream>
 #include <iostream>
 #include <octal.hpp>
+#include <regex>
 #include <string>
 #include <usage.hpp>
 #include <vector>
@@ -49,6 +50,16 @@ std::size_t process_chunk(std::istream& in, std::ostream& out, const options& op
 
 int main(int argc, char** argv) {
     auto opts = parse_options(argc, argv);
+
+    // Validate identifier and namespace
+    std::regex valid_identifier{"[a-zA-Z_][a-zA-Z0-9_]*"};
+    if (!std::regex_match(opts.identifier, valid_identifier)) {
+        error("identifier not suitable as variable name: " + opts.identifier);
+    }
+    if (!opts.identifier_namespace.empty() &&
+        !std::regex_match(opts.identifier_namespace, valid_identifier)) {
+        error("invalid namespace: " + opts.identifier_namespace);
+    }
 
     // Open files for reading and writing.
     std::ifstream input_stream(opts.input_file);
