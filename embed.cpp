@@ -79,7 +79,7 @@ int main(int argc, char** argv) {
     output_hpp_stream.close();
 
     // Scan the input file and write the output cpp file.
-    output_cpp_stream << "#include <" << opts.output_hpp << ">\n\n";
+    output_cpp_stream << "#include <" << opts.output_hpp.string() << ">\n\n";
     open_namespace(output_cpp_stream, opts);
     output_cpp_stream << "const char* " << opts.identifier << "_chunks[] = {\n";
 
