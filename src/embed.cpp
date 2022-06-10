@@ -29,8 +29,7 @@ std::size_t process_chunk(std::istream& in, std::ostream& out, const options& op
     std::size_t chunk_size = 0;
     char ch = '\0';
     bool first = true;
-    for (std::size_t i = 0; in && i < (opts.chunk_size - 1); ++i) {
-        in.read(&ch, 1);
+    for (std::size_t i = 0; in.read(&ch, 1) && i < (opts.chunk_size - 1); ++i) {
         if (first) {
             out << "    \"";
             first = false;
