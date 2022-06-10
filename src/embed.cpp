@@ -79,11 +79,14 @@ int main(int argc, char** argv) {
     output_hpp_stream << "#ifndef INCLUDED_EMBED_" << opts.identifier << '\n'
                       << "#define INCLUDED_EMBED_" << opts.identifier << '\n'
                       << "#include <cstdint>\n"
+                      << "#include <ostream>\n"
                       << '\n';
     open_namespace(output_hpp_stream, opts);
-    output_hpp_stream << "extern std::size_t " << opts.identifier << "_num_chunks;\n";
-    output_hpp_stream << "extern const char* " << opts.identifier << "_chunks[];\n";
-    output_hpp_stream << "extern std::size_t " << opts.identifier << "_chunk_sizes[];\n";
+    output_hpp_stream << "extern std::size_t " << opts.identifier << "_num_chunks;\n"
+                      << "extern const char* " << opts.identifier << "_chunks[];\n"
+                      << "extern std::size_t " << opts.identifier << "_chunk_sizes[];\n"
+                      << "\n"
+                      << "void " << opts.identifier << "_dump(std::ostream& out);\n";
     close_namespace(output_hpp_stream, opts);
     output_hpp_stream << "\n#endif\n";
     output_hpp_stream.close();
@@ -107,6 +110,14 @@ int main(int argc, char** argv) {
     for (auto chunk_size : chunk_sizes) {
         output_cpp_stream << "    " << chunk_size << ",\n";
     }
-    output_cpp_stream << "}; // " << opts.identifier << "_chunk_sizes\n";
+    output_cpp_stream << "}; // " << opts.identifier << "_chunk_sizes\n"
+                      << '\n'
+                      << "void " << opts.identifier << "_dump(std::ostream& out) {\n"
+                      << "    for (std::size_t i = 0; i < " << opts.identifier
+                      << "_num_chunks; ++i) {\n"
+                      << "        out.write(" << opts.identifier << "_chunks[i],\n"
+                      << "                  " << opts.identifier << "_chunk_sizes[i]);\n"
+                      << "    }\n"
+                      << "}\n";
     close_namespace(output_cpp_stream, opts);
 }
