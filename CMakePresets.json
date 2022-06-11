@@ -29,5 +29,15 @@
             "displayName": "Build Release",
             "configuration": "Release"
         }
+    ],
+    "testPresets": [
+        {
+            "configurePreset": "linux-gcc",
+            "name": "test-debug",
+            "configuration": "Debug",
+            "output": {
+                "outputOnFailure": true
+            }
+        }
     ]
 }

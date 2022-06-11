@@ -69,14 +69,17 @@ macro(add_embedded_file embed_target embed_input)
   endif()
 
   # Enforce absolute/relative paths.
-  if(IS_ABSOLUTE embed_HPP)
+  if(IS_ABSOLUTE "${embed_HPP}")
     message(FATAL_ERROR "add_embedded_file: HPP must be relative path")
   endif()
-  if(NOT IS_ABSOLUTE embed_INPUT)
+  if(NOT IS_ABSOLUTE "${embed_INPUT}")
     set(embed_INPUT "${CMAKE_CURRENT_SOURCE_DIR}/${embed_INPUT}")
   endif()
-  if(NOT IS_ABSOLUTE embed_CPP)
+  if(NOT IS_ABSOLUTE "${embed_CPP}")
     set(embed_CPP "${CMAKE_CURRENT_BINARY_DIR}/${embed_CPP}")
+  endif()
+  if(NOT IS_ABSOLUTE "${embed_INCLUDE_DIR}")
+    set(embed_INCLUDE_DIR "${CMAKE_CURRENT_BINARY_DIR}/${embed_INCLUDE_DIR}")
   endif()
 
   # Build the command line
